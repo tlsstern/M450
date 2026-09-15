@@ -31,3 +31,12 @@ Adresse "kleiner" als die andere, auch mit sich selbst verglichen. Das verletzt 
 von `Comparator` (`compare(a, b)` und `compare(b, a)` müssen entgegengesetzte Vorzeichen
 haben, gleiche Objekte geben `0`). Die Sortierung in `getAll()` war dadurch unbrauchbar.
 Jetzt wird nach Nachname verglichen, mit `compareTo` von `String`.
+
+## Aufgabe 2 - Comparator erweitern
+
+Der Comparator vergleicht zuerst den Nachnamen. Nur wenn der gleich ist, wird der Vorname
+verglichen, und wenn auch der gleich ist, die Telefonnummer.
+
+Getestet in `AddressComparatorTest`, vor allem die Fälle mit gleichem ersten Attribut:
+`testSameLastnameComparesFirstname` (gleicher Nachname, Vorname entscheidet) und
+`testSameNameComparesPhonenumber` (gleicher Name, Telefonnummer entscheidet).

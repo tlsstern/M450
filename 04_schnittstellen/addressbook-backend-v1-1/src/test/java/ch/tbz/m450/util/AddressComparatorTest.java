@@ -47,4 +47,24 @@ public class AddressComparatorTest {
 
         assertEquals(List.of(brunner, huber, meier), list);
     }
+
+    // Aufgabe 2: same lastname, so the firstname has to decide
+    @Test
+    public void testSameLastnameComparesFirstname() {
+        Address anna = new Address(1, "Anna", "Huber", "0792222222", new Date());
+        Address peter = new Address(2, "Peter", "Huber", "0791111111", new Date());
+
+        assertTrue(comparator.compare(anna, peter) < 0);
+        assertTrue(comparator.compare(peter, anna) > 0);
+    }
+
+    // Aufgabe 2: same name, so the phonenumber has to decide
+    @Test
+    public void testSameNameComparesPhonenumber() {
+        Address a1 = new Address(1, "Anna", "Huber", "0791111111", new Date());
+        Address a2 = new Address(2, "Anna", "Huber", "0792222222", new Date());
+
+        assertTrue(comparator.compare(a1, a2) < 0);
+        assertTrue(comparator.compare(a2, a1) > 0);
+    }
 }
