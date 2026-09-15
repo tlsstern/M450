@@ -94,7 +94,7 @@ public class Counter {
         System.out.println("\"e\" für einzahlen.");
         System.out.println("\"a\" für abheben.");
         System.out.println("\"k\" für Kontostand abfragen.");
-        System.out.println("\"ü\" für auf anderes Konto überweisen.");
+        System.out.println("\"u\" für auf anderes Konto überweisen.");
         System.out.println("\"l\" für Konto löschen.");
         System.out.println("\"w\" für Konto wechseln.");
         System.out.println("\"q\" für beenden.");
@@ -105,7 +105,7 @@ public class Counter {
             input = input.substring(0,1);
             input = input.toLowerCase();
 
-            Pattern pattern = Pattern.compile("[aekülwq]");
+            Pattern pattern = Pattern.compile("[aekulwq]");
             Matcher matcher = pattern.matcher(input);
 
             if (!matcher.find()) {
@@ -123,7 +123,7 @@ public class Counter {
                     acc.printBalance();
                 }
                 case "k" -> acc.printBalance();
-                case "ü" -> transfer(acc);
+                case "u" -> transfer(acc);
                 case "q" -> {
                     sayGoodbye();
                     sc.close();
