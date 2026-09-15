@@ -41,3 +41,20 @@ Ausführen (Backend muss dafür nicht laufen):
 cd spring-boot-angular-basic-lw2
 mvn test
 ```
+
+## Übung 2: End-to-End-Test im Browser
+
+Tool: Playwright, als devDependency im Frontend. Test `e2e/add-student.spec.ts`: Seite öffnen, auf
+"Add Students" klicken, Name und Email ausfüllen, Submit drücken und prüfen, dass der neue Student
+in der Liste steht. Konfiguration in `playwright.config.ts`.
+
+Backend und Frontend müssen laufen. Playwright 1.62 braucht mindestens Node 20, darum läuft der
+Test in einem eigenen Terminal mit Node 24:
+
+```powershell
+$env:Path = "$env:LOCALAPPDATA\nvm\v24.14.1;$env:Path"
+cd spring-boot-angular-basic-lw2\src\main\js\my-app
+npx playwright test --headed
+```
+
+Ohne `--headed` läuft er ohne sichtbaren Browser.
