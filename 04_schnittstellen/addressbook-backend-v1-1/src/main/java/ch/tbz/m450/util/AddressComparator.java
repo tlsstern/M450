@@ -8,8 +8,7 @@ public class AddressComparator implements Comparator<Address> {
 
     @Override
     public int compare(Address a1, Address a2) {
-        // Wrong implementation, please change me
-        return -1;
+        return a1.getLastname().compareTo(a2.getLastname());
     }
 
 }
