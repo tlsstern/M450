@@ -58,3 +58,17 @@ npx playwright test --headed
 ```
 
 Ohne `--headed` läuft er ohne sichtbaren Browser.
+
+## Übung 3: Lasttest
+
+Tool: JMeter, weil es am Schluss einen HTML-Report macht. Testplan `lasttest.jmx`, Auswertung in
+`lasttest.md`, Report unter `lasttest-report/index.html`.
+
+Backend muss laufen, dann:
+
+```powershell
+jmeter -n -t lasttest.jmx -l results.jtl -e -o lasttest-report -Jjmeter.reportgenerator.overall_granularity=1000 -Jjmeter.reportgenerator.statistic_window=5000000
+```
+
+Vorher `results.jtl` und `lasttest-report` löschen. JMeter will einen leeren Report-Ordner und
+hängt sonst die neuen Resultate an die alte `results.jtl` an.
