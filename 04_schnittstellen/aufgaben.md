@@ -19,24 +19,29 @@ Tests nicht voneinander abhängen.
 
 Im `AddressServiceTest` ist die H2-Datenbank weggemockt. Das `AddressRepository` ist ein
 `@Mock` von Mockito und wird mit `@InjectMocks` in den Service gegeben. Mit
-`when(...).thenReturn(...)` sage ich dem Mock, was er zurückgibt, mit `verify(...)` prüfe
-ich, ob der Service das Repository aufgerufen hat. Es wird kein Spring-Context gestartet.
+`when(...).thenReturn(...)` liefert der Mock die Testdaten, und mit `verify(...)` prüfe
+ich, ob der Service das Repository aufgerufen hat. Es wird bewusst kein Spring-Context gestartet.
 Beim Controller habe ich gleich den Service gemockt.
 
-Das `AddressRepository` ist nur ein Interface von Spring Data und hat keinen eigenen Code,
-darum gibt es dafür keine eigene Testklasse.
+Für das `AddressRepository` gibt es keine eigene Testklasse, weil es ein reines Spring-Data-Interface
+ohne eigene Methoden ist.
 
-**Comparator.** In der Vorgabe hat `compare` immer `-1` zurückgegeben. Damit ist jede
-Adresse "kleiner" als die andere, auch mit sich selbst verglichen. Das verletzt den Vertrag
-von `Comparator` (`compare(a, b)` und `compare(b, a)` müssen entgegengesetzte Vorzeichen
-haben, gleiche Objekte geben `0`). Die Sortierung in `getAll()` war dadurch unbrauchbar.
-Jetzt wird nach Nachname verglichen, mit `compareTo` von `String`.
+**Comparator.** In der Vorgabe hat `compare` immer `-1` zurückgegeben. Dadurch war jede
+Adresse "kleiner" als die andere, sogar im Vergleich mit sich selbst. Die Sortierung
+in `getAll()` hat so natürlich nicht funktioniert. Ich habe das korrigiert, sodass nach
+Nachname verglichen wird (`compareTo` von `String`).
+
+Getestet wird praxisnah über Listen (`list.sort(comparator)`), bei denen nach der Sortierung
+die Position der jeweiligen Adressen (`list.get(0)`, `list.get(1)`, ...) geprüft wird,
+statt mathematischer Vorzeichenprüfungen (`< 0` / `> 0`).
 
 ## Aufgabe 2 - Comparator erweitern
 
 Der Comparator vergleicht zuerst den Nachnamen. Nur wenn der gleich ist, wird der Vorname
 verglichen, und wenn auch der gleich ist, die Telefonnummer.
 
-Getestet in `AddressComparatorTest`, vor allem die Fälle mit gleichem ersten Attribut:
-`testSameLastnameComparesFirstname` (gleicher Nachname, Vorname entscheidet) und
-`testSameNameComparesPhonenumber` (gleicher Name, Telefonnummer entscheidet).
+Getestet in `AddressComparatorTest` anhand von Listen und den resultierenden Positionen:
+- `testSortByLastname`: Sortierung nach unterschiedlichen Nachnamen.
+- `testSameLastnameComparesFirstname`: gleicher Nachname, Vorname entscheidet über die Reihenfolge.
+- `testSameNameComparesPhonenumber`: gleicher Vor- und Nachname, Telefonnummer entscheidet.
+- `testSortListMultipleAddresses`: umfassender Test mit einer unsortierten Liste mehrerer Adressen, die alle Kriterien kombiniert.

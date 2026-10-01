@@ -1,22 +1,10 @@
 # Lasttest Backend
 
-## Tool
+## Tool und Setup
 
-Ich habe JMeter 5.6.3 genommen. Postman wäre auch gegangen, aber JMeter macht am Schluss
-einen HTML-Report mit Diagrammen, das ist für die Auswertung praktischer.
+Ich habe JMeter 5.6.3 verwendet. Postman wäre zwar auch möglich gewesen, aber JMeter eignet sich besser für reine Lasttests, weil man Tests headless über die Konsole ausführen kann und direkt einen HTML-Report mit Diagrammen bekommt.
 
-## Was JMeter kann
-
-- Viele parallele Benutzer simulieren (Thread Group mit Anzahl Threads, Ramp-up und Loops oder Dauer)
-- Nicht nur HTTP, auch JDBC, FTP, JMS und weitere Protokolle
-- Assertions, um die Antworten zu prüfen, und Timer für Pausen zwischen den Requests
-- Listener wie Summary Report oder Graphen direkt im GUI
-- Testdaten aus einer CSV-Datei einlesen (CSV Data Set Config)
-- Requests im Browser aufnehmen (HTTP(S) Test Script Recorder)
-- Im CLI-Modus ohne GUI laufen und daraus einen HTML-Report erzeugen
-
-Den Testplan baut man im GUI und speichert ihn als `.jmx`. Für den eigentlichen Lasttest soll man
-laut Doku den CLI-Modus nehmen, weil das GUI selber zu viel Leistung braucht.
+Den Testplan (`lasttest.jmx`) habe ich im GUI erstellt (Thread Group und HTTP Request auf den `/students`-Endpoint). Der eigentliche Lasttest lief dann über die CLI, damit die grafische Oberfläche keine unnötige CPU verbraucht.
 
 ## Konfiguration
 

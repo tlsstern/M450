@@ -24,6 +24,11 @@ bin/
 *.log
 hs_err_pid*
 replay_pid*
+*.jtl
+lasttest-report/
+playwright-report/
+test-results/
+jmeter.log
 
 # Node (frontend part of the project)
 node_modules/
